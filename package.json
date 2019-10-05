@@ -6,6 +6,7 @@
   "scripts": {
     "build-server-dev": "NODE_ENV='development' webpack --mode=development --watch --config webpack.server.js",
     "build-server-prod": "NODE_ENV='production' webpack --config webpack.server.js",
+    "build-client-dev": "NODE_ENV='development' webpack --mode=development --watch --config webpack.client.js",
     "start-server-dev": "NODE_ENV='development' node dist/server/index.js"
   },
   "repository": {
