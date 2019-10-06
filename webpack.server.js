@@ -5,16 +5,19 @@ const nodeExternals = require('webpack-node-externals');
 
 module.exports = {
   node: {
-    __dirname: true,
-    __filename: true
+    __dirname: false,
+    __filename: false
   },
   target: 'node',
   externals: [nodeExternals()],
+
   entry: path.join(__dirname, 'src/server/index.js'),
+
   output: {
     filename: 'index.js',
     path: path.join(__dirname, 'dist/server')
   },
+
   plugins: [
     new CleanWebpackPlugin(),
     new CopyWebpackPlugin([
