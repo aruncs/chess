@@ -89,6 +89,7 @@ import styles from "./style/style.scss"
         var piece = initialPiecePosition[cellLabel]
         if (piece) {
           cell.classList.add(piece)
+          
         }
       }
     }
