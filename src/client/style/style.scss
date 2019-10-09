@@ -8,9 +8,14 @@ body {
     height: 800px;
     box-shadow: 0 0 10px #7f7f7f;
   }
-  .chess-pieces {
-    height: 100%;
-    width: 100%;
+  .chess-piece {
+    position: absolute;
+    display: inline-block;
+    //height: 100%;
+    //width: 100%;
+    height: 100px;
+    width: 100px;
+    background-size: cover;
   }
   .rank {
     font-size: 0px;
@@ -19,7 +24,54 @@ body {
     display: inline-block;
     height: 100px;
     width: 100px;
-    background-size: cover;
+  }
+  .rank-1 {
+    top: 700px;
+  }
+  .rank-2 {
+    top: 600px;
+  }
+  .rank-3 {
+    top: 500px;
+  }
+  .rank-4 {
+    top: 400px;
+  }
+  .rank-5 {
+    top: 300px;
+  }
+  .rank-6 {
+    top: 200px;
+  }
+  .rank-7 {
+    top: 100px;
+  }
+  .rank-8 {
+    top: 0px;
+  }
+  .file-a {
+    left: 0px;
+  }
+  .file-b {
+    left: 100px;
+  }
+  .file-c {
+    left: 200px;
+  }
+  .file-d {
+    left: 300px;
+  }
+  .file-e {
+    left: 400px;
+  }
+  .file-f {
+    left: 500px;
+  }
+  .file-g {
+    left: 600px;
+  }
+  .file-h {
+    left: 700px;
   }
   .black-cell {
     background-color: rgba(0, 0, 0, 0.4);
