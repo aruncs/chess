@@ -1,4 +1,6 @@
 import styles from "./style/style.scss"
+import {getBoard} from './js/board'
+
 ;(function initializeApp() {
   const FILES = ["a", "b", "c", "d", "e", "f", "g", "h"]
   const initialPiecePosition = {
@@ -37,16 +39,22 @@ import styles from "./style/style.scss"
     h7: "black-pawn"
   }
   window.onload = function() {
-    var boardId = "chessBoard"
-    renderboard(boardId)
-    renderPieces(boardId)
+    var app = document.getElementById("app")
+    app.classList.add("chess")
+    
+    const board = getBoard('chessBoard')
+    board.initializeBoard()
+    board.render()
+
+    //renderboard(boardId)
+    //renderPieces(boardId)
   }
 
   function renderboard(boardId) {
     var app = document.getElementById("app")
     app.classList.add("chess")
+    
     var divElement = document.createElement("div")
-
     var chessBoard = divElement.cloneNode()
     chessBoard.id = boardId
     chessBoard.classList.add("chess-board")
