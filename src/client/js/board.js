@@ -1,6 +1,6 @@
 import {initialPiecePosition} from './constants'
 import {createPiece} from './pieceFactory'
-import {getPieceDetails} from './util'
+import {getPieceDetails, getPositionString} from './util'
 
 const FILES = ["a", "b", "c", "d", "e", "f", "g", "h"]
 
@@ -8,6 +8,7 @@ const board = {
 
   isWhitesTurn : true,
   state: {},
+  cellMap: {},
   initializeBoard : function() {
     let pieceName
     let pieceDetails
@@ -22,13 +23,72 @@ const board = {
   setId : function(id) {
     this.id = id
   },
-  renderBoard : function() {
+  handleCellClick : function(event) {
+    var clickedCell = event.target
+    const {rank, file} = clickedCell.dataset
+    const position = getPositionString(file, rank)
+    const clickedPiece = this.getPieceAt(position)
+    this.removeMoveMarkers()
+    if (this.selectedPiece) {
+      this.selectedPiece.markAsMoved()
+      if (clickedPiece && clickedPiece.getColour() !== this.selectedPiece.getColour()) {
+        // remove oponents piece from board
+      } else if(!clickedPiece) {
+        this.selectedPiece.setPosition(getPositionString(file, rank))
+        this.setPieceAt(this.selectedPiece.getPosition(), this.selectedPiece)
+        this.selectedPiece.render(this.id)
+        this.selectedPiece = null
+      }
+
+    } else {
+      if (clickedPiece) {
+        this.selectedPiece = clickedPiece
+        const possibleNextPositions = clickedPiece.getPossibleMoves()
+        this.markPossibleMoves(possibleNextPositions)
+      }
+    }
+  },
+  removePieceFromBoard : function(piece) {
+    this.setPieceAt(piece.getPosition(), null)
+    this.removePieceElement(piece.getPieceStyleClass())
+  },
+  removePieceElement : function(pieceClassName) {
+    var pieceElement = document.getElementsByClassName(pieceClassName)[0]
+    if (pieceElement) {
+      pieceElement.parentNode.removeChild(pieceElement)
+    }
+  },
+  markPossibleMoves : function(positions) {
+    positions.forEach(position => {
+      this.getCellAt(getPositionString(position.file, position.rank)).classList.add('move-marker')
+    })
+  },
+  removeMoveMarkers : function() {
+    var markedCells = document.getElementsByClassName('move-marker')
+    while(markedCells.length > 0) {
+      markedCells[0].classList.remove('move-marker')
+    }
+  },
+  getCellAt : function(position) {
+    return this.cellMap[position]
+  },
+  setCellAt : function(position, cellElement) {
+    this.cellMap[position] = cellElement
+  },
+  getPieceAt : function(positionString) {
+    return this.state[positionString]
+  },
+  setPieceAt : function(positionString, piece) {
+    this.state[positionString] = piece
+  },
+  renderBoard : function(containerId) {
     var divElement = document.createElement("div")
 
     var chessBoard = divElement.cloneNode()
     chessBoard.id = this.id
     chessBoard.classList.add("chess-board")
-    app.appendChild(chessBoard)
+    var chessBoardContainer = document.getElementById(containerId)
+    chessBoardContainer.appendChild(chessBoard)
 
     var isBlackCell = false
 
@@ -47,16 +107,19 @@ const board = {
         if (isBlackCell) {
           cell.classList.add("black-cell")
         }
-
+        this.setCellAt(getPositionString(cell.dataset.file, cell.dataset.rank), cell)
         rank.appendChild(cell)
 
         isBlackCell = !isBlackCell
       }
       isBlackCell = !isBlackCell
     }
-    return chessBoard
+
+    //Add event listeners. find a different place to do this
+    chessBoard.addEventListener('click', this.handleCellClick.bind(this))
+    //return chessBoard
   },
-  renderAllPieces : function() {
+  renderAllPieces : function(containerId) {
     var chessBoard = document.getElementById(this.id)
     var positionsWithPiece = Object.keys(this.state)
     var position
@@ -65,14 +128,15 @@ const board = {
     for (var i = 0; i < positionsWithPiece.length; i++) {
       position = positionsWithPiece[i]
       piece = this.state[position]
-      pieceElement =  piece.render()
-      //TODO: Change this
-      chessBoard.appendChild(pieceElement) 
+      piece.render(containerId)
+      //pieceElement =  piece.render()
+      // //TODO: Change this
+      // chessBoard.appendChild(pieceElement) 
     }
   },
-  render : function() {
-    const chessBoard = this.renderBoard()
-    this.renderAllPieces()
+  render : function(containerId) {
+    this.renderBoard(containerId)
+    this.renderAllPieces(this.id)
   }
 }
 export function getBoard(id) {
