@@ -1,6 +1,5 @@
 import styles from "./style/style.scss"
-import {getBoard} from './js/board'
-
+import { getBoard } from "./js/board"
 ;(function initializeApp() {
   const FILES = ["a", "b", "c", "d", "e", "f", "g", "h"]
   const initialPiecePosition = {
@@ -41,10 +40,10 @@ import {getBoard} from './js/board'
   window.onload = function() {
     var app = document.getElementById("app")
     app.classList.add("chess")
-    
-    const board = getBoard('chessBoard')
+
+    const board = getBoard("chessBoard")
     board.initializeBoard()
-    board.render()
+    board.render("app")
 
     //renderboard(boardId)
     //renderPieces(boardId)
@@ -53,7 +52,7 @@ import {getBoard} from './js/board'
   function renderboard(boardId) {
     var app = document.getElementById("app")
     app.classList.add("chess")
-    
+
     var divElement = document.createElement("div")
     var chessBoard = divElement.cloneNode()
     chessBoard.id = boardId
@@ -97,7 +96,6 @@ import {getBoard} from './js/board'
         var piece = initialPiecePosition[cellLabel]
         if (piece) {
           cell.classList.add(piece)
-          
         }
       }
     }

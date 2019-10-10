@@ -9,3 +9,7 @@ export function getPieceDetails(name) {
 export function getPieceName(details) {
   return `${details.colour}-${details.type}`
 }
+
+export function getPositionString(file, rank) {
+  return `${file}${rank}`
+}

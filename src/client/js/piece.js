@@ -55,16 +55,61 @@ const piece = {
       classList = `chess-piece ${classList} ${this.getFileStyleClass()} ${this.getRankStyleClass()} ${this.getPieceStyleClass()}`
       return classList
     },
-    render : function() {
+    isMoved : function() {
+      return this.moved
+    },
+    markAsMoved : function() {
+      this.moved = true 
+    },
+    render : function(containerId) {
+      if (this.element) {
+        this.element.parentNode.removeChild(this.element)
+      }
       var divElement = document.createElement('div')
+      this.element = divElement
       divElement.classList.value = this.getStyleClassList()
-      return divElement
+      
+      var pieceContainerElement = document.getElementById(containerId)
+
+      pieceContainerElement.appendChild(divElement)
     }
 }
 
 const pawn = Object.create(piece)
+pawn.moved = false
 pawn.getPossibleMoves = function() {
+  var currentRank = this.getRank()
+  var currentFile = this.getFile()
 
+  var possibleMoves = []
+  if (this.getColour() === 'white') {
+    if(currentRank < 8) {
+      possibleMoves.push({
+        rank: parseInt(currentRank) + 1,
+        file: currentFile
+      })
+    }
+    if (!this.isMoved()) {
+      possibleMoves.push({
+        rank: parseInt(currentRank) + 2,
+        file: currentFile
+      })
+    }
+  } else if (this.getColour() === 'black') {
+    if (currentRank > 0) {
+      possibleMoves.push({
+        rank: parseInt(currentRank) - 1,
+        file: currentFile
+      })
+    }
+    if (!this.isMoved()) {
+      possibleMoves.push({
+        rank: parseInt(currentRank) - 2,
+        file: currentFile
+      })
+    }
+  }
+  return possibleMoves
 }
 
 const rook = Object.create(piece)
