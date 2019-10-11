@@ -28,15 +28,24 @@ const board = {
     const {rank, file} = clickedCell.dataset
     const position = getPositionString(file, rank)
     const clickedPiece = this.getPieceAt(position)
+
     this.removeMoveMarkers()
-    if (this.selectedPiece) {
-      this.selectedPiece.markAsMoved()
-      if (clickedPiece && clickedPiece.getColour() !== this.selectedPiece.getColour()) {
-        // remove oponents piece from board
-      } else if(!clickedPiece) {
+    if (this.selectedPiece && this.selectedPiece.getPosition() !== position) {
+      //Check if clicked cell is valid for the piece
+      if (this.isValidMove(this.selectedPiece.getPossibleMoves(), {rank, file})) {
+        this.selectedPiece.markAsMoved()
+        if (clickedPiece && clickedPiece.getColour() !== this.selectedPiece.getColour()) {
+          //TODO: remove oponents piece from board
+          this.removePieceFromBoard(clickedPiece)
+        }
+
+        //Remove piece from old position
+        this.setPieceAt(this.selectedPiece.getPosition(), null)
         this.selectedPiece.setPosition(getPositionString(file, rank))
         this.setPieceAt(this.selectedPiece.getPosition(), this.selectedPiece)
         this.selectedPiece.render(this.id)
+        this.selectedPiece = null
+      } else {
         this.selectedPiece = null
       }
 
@@ -48,15 +57,28 @@ const board = {
       }
     }
   },
+  
   removePieceFromBoard : function(piece) {
+    debugger
     this.setPieceAt(piece.getPosition(), null)
     this.removePieceElement(piece.getPieceStyleClass())
   },
   removePieceElement : function(pieceClassName) {
     var pieceElement = document.getElementsByClassName(pieceClassName)[0]
-    if (pieceElement) {
-      pieceElement.parentNode.removeChild(pieceElement)
+    pieceElement.remove()
+    // if (pieceElement) {
+    //   pieceElement.parentNode.removeChild(pieceElement)
+    // }
+  },
+  isValidMove: function(possibleNextPositions, selectedPosition) {
+    let isValid = false
+    for (var i = 0; i < possibleNextPositions.length; i++) {
+      if (possibleNextPositions[i].file === selectedPosition.file && parseInt(possibleNextPositions[i].rank) === parseInt(selectedPosition.rank)) {
+        isValid = true
+        break
+      }
     }
+    return isValid
   },
   markPossibleMoves : function(positions) {
     positions.forEach(position => {
