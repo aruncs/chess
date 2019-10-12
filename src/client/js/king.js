@@ -1,8 +1,6 @@
-import {piece} from './piece'
+import { piece } from "./piece"
 
 const king = Object.create(piece)
-king.getPossibleMoves = function() {
+king.getPossibleMoves = function() {}
 
-}
-
-export {king}
+export { king }

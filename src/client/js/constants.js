@@ -1,10 +1,10 @@
 const typeOfPieces = {
-  pawn: 'pawn',
-  rook: 'rook',
-  knight: 'knight',
-  bishop: 'bishop',
-  king: 'king',
-  queen: 'queen'
+  pawn: "pawn",
+  rook: "rook",
+  knight: "knight",
+  bishop: "bishop",
+  king: "king",
+  queen: "queen"
 }
 
 const initialPiecePosition = {
@@ -43,4 +43,4 @@ const initialPiecePosition = {
   h7: "black-pawn"
 }
 
-export {typeOfPieces, initialPiecePosition}
+export { typeOfPieces, initialPiecePosition }

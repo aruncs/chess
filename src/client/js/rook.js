@@ -1,8 +1,6 @@
-import {piece} from './piece'
+import { piece } from "./piece"
 
 const rook = Object.create(piece)
-rook.getPossibleMoves = function() {
+rook.getPossibleMoves = function() {}
 
-}
-
-export {rook}
+export { rook }

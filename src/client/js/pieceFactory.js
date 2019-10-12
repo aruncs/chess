@@ -1,10 +1,10 @@
-import {TypeOfPieces} from './constants'
-import {pawn} from './pawn'
-import {rook} from './rook'
-import {knight} from './knight'
-import {bishop} from './bishop'
-import {king} from './king'
-import {queen} from './queen'
+import { TypeOfPieces } from "./constants"
+import { pawn } from "./pawn"
+import { rook } from "./rook"
+import { knight } from "./knight"
+import { bishop } from "./bishop"
+import { king } from "./king"
+import { queen } from "./queen"
 
 const BasePieceObject = {
   pawn: pawn,

@@ -8,7 +8,7 @@
     "build-server-prod": "NODE_ENV='production' webpack --config webpack.server.js",
     "build-client-dev": "NODE_ENV='development' webpack --mode=development --watch --config webpack.client.js",
     "start-server-dev": "NODE_ENV='development' node dist/server/index.js",
-    "format-code": "prettier --no-semi --print-width 120 --write ./src/**/*.{js,scss}"
+    "format-code": "prettier --no-semi --print-width 120 --write './src/**/*.{js,scss}'"
   },
   "repository": {
     "type": "git",

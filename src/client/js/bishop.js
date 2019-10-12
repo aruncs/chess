@@ -1,8 +1,6 @@
-import {piece} from './piece'
+import { piece } from "./piece"
 
 const bishop = Object.create(piece)
-bishop.getPossibleMoves = function() {
+bishop.getPossibleMoves = function() {}
 
-}
-
-export {bishop}
+export { bishop }
