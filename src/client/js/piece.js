@@ -16,6 +16,9 @@ const piece = {
     },
     setType : function(type) {
       this.type = type
+    },
+    getElement: function() {
+      return this.element
     },   
     getPossibleMoves : function() {
       throw console.error('This method should be implemented in concrete piece');    
@@ -37,7 +40,7 @@ const piece = {
     },
     getStyleClassList : function() {
       var classList = ''
-      classList = `chess-piece ${classList} ${this.getFileStyleClass()} ${this.getRankStyleClass()} ${this.getPieceStyleClass()}`
+      classList = `chess-piece ${this.getFileStyleClass()} ${this.getRankStyleClass()} ${this.getPieceStyleClass()}`
       return classList
     },
     isMoved : function() {

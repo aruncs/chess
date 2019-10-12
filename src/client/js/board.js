@@ -59,16 +59,15 @@ const board = {
   },
   
   removePieceFromBoard : function(piece) {
-    debugger
     this.setPieceAt(piece.getPosition(), null)
-    this.removePieceElement(piece.getPieceStyleClass())
+    this.removePieceElement(piece)
   },
-  removePieceElement : function(pieceClassName) {
-    var pieceElement = document.getElementsByClassName(pieceClassName)[0]
-    pieceElement.remove()
-    // if (pieceElement) {
-    //   pieceElement.parentNode.removeChild(pieceElement)
-    // }
+  removePieceElement : function(piece) {
+    let element = piece.getElement()
+    if (element) {
+      const parentElement = element.parentElement
+       parentElement.removeChild(element)
+    }
   },
   isValidMove: function(possibleNextPositions, selectedPosition) {
     let isValid = false
